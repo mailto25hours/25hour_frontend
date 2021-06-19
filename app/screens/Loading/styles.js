@@ -9,6 +9,7 @@ export default StyleSheet.create({
   },
   logo: {
     width: 120,
-    height: 120
+    height: 120,
+    alignItems: "center",
   }
 });

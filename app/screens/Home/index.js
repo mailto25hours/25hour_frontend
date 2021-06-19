@@ -51,7 +51,7 @@ export default function Home({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
 
-      <SafeAreaView style={{ flex: 1 }} forceInset={{ top: "always" }}>
+      <SafeAreaView forceInset={{ top: "always" }}>
         <Header
           title={<Text style={[styles.subTitle, { color: colors.primary }]}>
             <Image source={Images.logo} style={styles.logo} resizeMode="center" />
@@ -98,7 +98,7 @@ export default function Home({ navigation }) {
           >
             <View
               style={[BaseStyle.textInput, { backgroundColor: colors.card }]} >
-              <Text body1 grayColor style={{ flex: 1 }}>
+              <Text body1 grayColor >
                 {t("search_location")}
               </Text>
               <View style={{ paddingVertical: 8 }}>
@@ -120,62 +120,16 @@ export default function Home({ navigation }) {
         </View>
 
 
-        <TouchableOpacity onPress={() => { console.log() }}>
-          <Animated.View
-            style={[
-              styles.imageBackground,
-              {
-                height: deltaY.interpolate({
-                  inputRange: [
-                    0,
-                    Utils.scaleWithPixel(100),
-                    Utils.scaleWithPixel(100)
-                  ],
-                  outputRange: [heightImageBanner, heightHeader, 0]
-                })
-              }
-            ]}
-          >
-            <Swiper
-              onPress={() => { console.log("calender pressed") }}
-              dotStyle={{
-                backgroundColor: colors.text
-              }}
-              activeDotColor={colors.primary}
-              paginationStyle={styles.contentPage}
-              removeClippedSubviews={false}
-              autoplay={true}
-              autoplayTimeout={2}
-            >
-              {banner.map((item, index) => {
-                return (
-                  <Image key={item.id} source={item.image} style={{ flex: 1 }} />
-                );
-              })}
-            </Swiper>
-          </Animated.View>
-        </TouchableOpacity>
       </SafeAreaView>
 
-      <ScrollView
-        onScroll={Animated.event([
-          {
-            nativeEvent: {
-              contentOffset: { y: deltaY }
-            }
-          }
-        ])}
-        onContentSizeChange={() => {
-          setHeightHeader(Utils.heightHeader());
-        }}
-        scrollEventThrottle={8}>
+      <ScrollView>
 
         {isLoading ? <ActivityIndicator size="small" color={colors.primary} /> : <>
         </>}
 
 
-        <View  >
-          <Text title3 semibold style={{ marginTop: 80 }}>
+        <View style={{ marginTop: 20, marginBottom: 20 }}>
+          <Text title3 semibold >
             {t("Paid Post")}
           </Text>
 
@@ -207,13 +161,108 @@ export default function Home({ navigation }) {
             )}
           />
         </View>
-     
-       
+
+        <View  >
+          <Text title3 semibold >
+            {t("Commission Post")}
+          </Text>
+
+
+          <FlatList
+            contentContainerStyle={{ paddingLeft: 5, paddingRight: 15, marginTop: 0 }}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={HomePopularData}
+            keyExtractor={(item, index) => item.id}
+            ListEmptyComponent={
+              <View
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text body2 style={{ textAlign: 'center' }}>
+                  {t('data_not_found')}
+                </Text>
+              </View>
+            }
+            renderItem={({ item, index }) => (
+              <Card
+                style={[styles.popularItem, { marginLeft: 15 }]}
+                image={item.image}
+                onPress={() => navigation.navigate('CampaignDetail')}
+              >
+                <Text headline whiteColor semibold>
+                  {item.title}
+                </Text>
+              </Card>
+            )}
+          />
+        </View>
+
+        <View  >
+          <Text title3 semibold >
+            {t("Product Sponsor")}
+          </Text>
+
+
+          <FlatList
+            contentContainerStyle={{ paddingLeft: 5, paddingRight: 15, marginTop: 0 }}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={HomePopularData}
+            keyExtractor={(item, index) => item.id}
+            ListEmptyComponent={
+              <View
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text body2 style={{ textAlign: 'center' }}>
+                  {t('data_not_found')}
+                </Text>
+              </View>
+            }
+            renderItem={({ item, index }) => (
+              <Card
+                style={[styles.popularItem, { marginLeft: 15 }]}
+                image={item.image}
+                onPress={() => navigation.navigate('CampaignDetail')}
+              >
+                <Text headline whiteColor semibold>
+                  {item.title}
+                </Text>
+              </Card>
+            )}
+          />
+        </View>
+        <View  >
+          <Text title3 semibold >
+            {t("Shoutout Exchange")}
+          </Text>
+
+
+          <FlatList
+            contentContainerStyle={{ paddingLeft: 5, paddingRight: 15, marginTop: 0 }}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={HomePopularData}
+            keyExtractor={(item, index) => item.id}
+            ListEmptyComponent={
+              <View
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text body2 style={{ textAlign: 'center' }}>
+                  {t('data_not_found')}
+                </Text>
+              </View>
+            }
+            renderItem={({ item, index }) => (
+              <Card
+                style={[styles.popularItem, { marginLeft: 15 }]}
+                image={item.image}
+                onPress={() => navigation.navigate('CampaignDetail')}
+              >
+                <Text headline whiteColor semibold>
+                  {item.title}
+                </Text>
+              </Card>
+            )}
+          />
+        </View>
       </ScrollView>
-
-
-
-
 
     </View>
   );
